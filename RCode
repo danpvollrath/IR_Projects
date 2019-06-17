@@ -1,3 +1,6 @@
+# Example of using R to geocode student addresses
+# Dan Vollrath
+
 # Usually I try to save Excel files as csv files before bringing them into R
 # Excel is possible, I've just had much better luck with csv
 # Use read.csv for csv 
