@@ -1,6 +1,13 @@
-# Example of using R to geocode student addresses
+# Using R to geocode student addresses
+# This syntax was designed to be somewhat of an introduction to R as well as geocoding
+# Some of the lines are purposefully duplicative, to show different ways to do things
 # Dan Vollrath
 
+library(ggplot2)
+
+# *******************
+# Reading in our data ----
+# ********************
 # Usually I try to save Excel files as csv files before bringing them into R
 # Excel is possible, using read_table
 # Use read.csv for csv 
@@ -10,8 +17,8 @@
 # "=" can also be an assignment operator, but because of equality uses of "=", using "<-" is a good habit.
 # Common mistakes by me: Using "\" instead of "/", forgetting ".csv", forgetting "header = T"
 
-mydata <- read.csv("C:/Users/dvollrat/Desktop/addresses.csv",header = T)
-mydata <- read.csv(file.choose(),header = T)
+mydata <- read.csv("C:/Users/dvollrat/Desktop/addresses.csv", header = T)
+mydata <- read.csv(file.choose(), header = T)
 
 
 # Click on the object in the Environment window to view your dataframe
@@ -19,7 +26,13 @@ mydata <- read.csv(file.choose(),header = T)
 # Or use View(),
 View(mydata)
 
+# ********************
 # Google API Keys
+# ********************
+# When I started this project, we used to be able to code 2500 addresses a day for free
+#    Now, you have to set up an account with google cloud
+#    You have to activate the Google Maps API within your account
+#    Google gives you a lot of credit on your account
 # The function we're using uses the Google Maps API (Application programming interface) to geocode our addresses.
 set.api.key(XXXXXXXXXXXXXXX)
 
@@ -30,23 +43,11 @@ set.api.key(XXXXXXXXXXXXXXX)
 # To find what's in row 1 column 1, we would write mydata[1,1] for example
 # By not having a row in the first position of the [,], I'm accessing the entire 12th and 13 columns of mydata
 
-length(mydata)
-mydata[,12] <- NA ; colnames(mydata)[12] <- "lat"
-mydata[,13] <- NA ; colnames(mydata)[13] <- "lon"
+n <- length(mydata)
+mydata[,n] <- NA ; colnames(mydata)[n] <- "lat"
+mydata[,(n+1)] <- NA ; colnames(mydata)[(n+1)] <- "lon"
 View(mydata)
 
-# First I'm creating empty columns for latitude and longitude in my dataframe
-# The semicolon acts as a new line of code, since these two lines are so related, I find it more neat
-#     to code this way
-# To access a part of a data frame, we use brackets. First position is row, second is column
-# To find what's in row 1 column 2, we would write mydata[1,2] for example
-# By not having a row in the first position of the [,], I'm accessing the entire 12th and 13 columns of mydata
-
-colnum_a <- length(mydata)
-colnum_b <- length(mydata)+1
-mydata[,colnum_a] <- NA ; colnames(mydata)[colnum_a] <- "lat"
-mydata[,colnum_b] <- NA ; colnames(mydata)[colnum_b] <- "lon"
-View(mydata)
 
 # Moving Step by step through this:
 # Line 1: We start by creating a for loop, we use i as our iterator, 
