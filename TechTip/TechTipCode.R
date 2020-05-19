@@ -37,7 +37,8 @@ animp <- ggplot(data = fill_rates, aes(x = Section, y = Students)) +
   
   # Animation Portion
   transition_manual(frames = DaysToStart) +
-  labs(title = "Enrollment {current_frame} Days Relative to Term Start")
+  labs(title = "Enrollment {current_frame} Days Relative to Term Start") +
+  ease_aes('linear')
 
 animate(plot = animp, nframes = 100, fps = 4, end_pause = 3)
 
